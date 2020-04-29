@@ -69,18 +69,18 @@ class _AddProductState extends State<AddProduct> {
       isLoading = true;
     });
 
-  //  if (_editedProduct.id == null) {
-      //  print(_editedProduct.fav);
-  //    print(_editedProduct.id);
-      await Provider.of<Product>(context, listen: false)
-          .addProduct(_editedProduct);
-    /* else {
+   if (_editedProduct.id == null) {
+     //  print(_editedProduct.fav);
+     //    print(_editedProduct.id);
+     await Provider.of<Product>(context, listen: false)
+         .addProduct(_editedProduct);
+   } else {
       //     print(_editedProduct.fav);
       print(_editedProduct.id);
       await Provider.of<Product>(context, listen: false)
           .updateProduct(_editedProduct.id, _editedProduct);
     }
-*/
+
     setState(
       () {
         isLoading = false;
