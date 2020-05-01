@@ -9,16 +9,20 @@ class Product with ChangeNotifier {
   final String description;
   final String imageUrl;
   bool fav;
+  int amount=0;
+
 
   List<Product> productList = [];
-
+List<Product> cartItems=[];
   Product(
       {@required this.id,
       @required this.title,
       @required this.price,
       @required this.description,
       @required this.imageUrl,
-      this.fav = false});
+      this.fav = false
+
+      });
 
   Future<void> addProduct(Product product) async {
     //print(product.fav);
@@ -57,7 +61,8 @@ class Product with ChangeNotifier {
           title: prodData["title"],
           price: prodData["price"],
           description: prodData["description"],
-          imageUrl: prodData["imageUrl"]));
+          imageUrl: prodData["imageUrl"],
+          fav: prodData["fav"]));
     });
     productList = fetchedList;
     notifyListeners();
@@ -95,4 +100,25 @@ class Product with ChangeNotifier {
     productList.removeWhere((prod) => prod.id == id);
     notifyListeners();
   }
+
+  Future<void> toggleFav(String id, Product prod) async {
+   // fav = !fav;
+    prod.fav = !prod.fav;
+    final index = productList.indexWhere((prod) => prod.id == id);
+    productList[index].fav =prod.fav;
+    final url = 'https://shop-app-11263.firebaseio.com/products/$id.json';
+
+    await http.patch(url, body: json.encode({"fav": prod.fav}));
+
+    //print("this run first $fav" );
+    notifyListeners();
+  }
+/*void getAmount(String id){
+    int index=productList.indexWhere((prod)=>prod.id==id);
+    productList[index].amount+=1;
+    notifyListeners();
+
+  }*/
+
+
 }

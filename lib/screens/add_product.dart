@@ -69,7 +69,7 @@ class _AddProductState extends State<AddProduct> {
       isLoading = true;
     });
 
-   if (_editedProduct.id == null) {
+   if (_editedProduct.id == "") {
      //  print(_editedProduct.fav);
      //    print(_editedProduct.id);
      await Provider.of<Product>(context, listen: false)

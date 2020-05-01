@@ -3,7 +3,10 @@ import './screens/add_product.dart';
 import './provider/product.dart';
 import 'package:provider/provider.dart';
 import './screens/manage_products.dart';
-import 'package:device_preview/device_preview.dart';
+import './screens/view_product.dart';
+import './provider/cart.dart';
+import 'provider/order.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -14,12 +17,21 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      builder: (ctx)=>Product(),
+    return MultiProvider(
+
+      providers: [
+        ChangeNotifierProvider(builder: (ctx)=>Product(),),
+        ChangeNotifierProvider(builder: (ctx)=>Cart(),),
+        ChangeNotifierProvider(builder: (ctx)=>Order(),),
+
+      ],
+
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         initialRoute: "./",
         routes: {
-          "./":(context)=>ManageProduct(),
+          "./":(context)=>ViewProduct(),
+          "/manageProduct":(contex)=>ManageProduct(),
           "/addProduct":(context)=>AddProduct(),
 
         }
